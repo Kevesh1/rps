@@ -8,8 +8,8 @@ function computerPlay(){
     return compuerChoices[rndNmbr];
 }
 
-function playRound(computerSelection){
-    let playerSelection = prompt("Make a choice!").toLowerCase();
+function playRound(computerSelection, playerSelection){
+    //let playerSelection = prompt("Make a choice!").toLowerCase();
 
 
     if(playerSelection === computerSelection)
@@ -33,11 +33,7 @@ function playRound(computerSelection){
         computerPoint = 0;
         playerPoint = 0;
     }
-    else{
-        game();
-    }
-
-
+    
 }
 
 function checkWinner(){
@@ -53,12 +49,27 @@ function checkWinner(){
 }
 
 
-function game(){
+function game(playerSelection){
 
-    playRound(computerPlay());
+    playRound(computerPlay(), playerSelection);
+    //console.log("rock")
 }
 
-game();
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        if(!e.target.id) return;
+        game(e.target.id)
+        //console.log(e.target.id);
+    });
+});
+
+
+//game();
+
+
 
 
 
