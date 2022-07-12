@@ -10,7 +10,7 @@ function computerPlay(){
 
 function playRound(computerSelection, playerSelection){
     //let playerSelection = prompt("Make a choice!").toLowerCase();
-    const lastRoundContainer = document.querySelector('.last-round');
+    const lastRoundContainer = document.querySelector('#last-round');
     const lastRoundText = document.createElement('p');
     lastRoundContainer.appendChild(lastRoundText);
 
@@ -39,24 +39,19 @@ function playRound(computerSelection, playerSelection){
     }
 
     if(checkWinner()){
-        const playText = document.createElement('div')
-        playText.textContent = 'Do you want to play again?'
+        disableButtons();
+
         const question = document.querySelector('.question');
-
         question.appendChild(playText);
-
-        document.querySelector('.buttons').disabled = true;
 
         computerPoint = 0;
         playerPoint = 0;
     }
-    
 }
 
 function checkWinner(){
     if(playerPoint === 5 | computerPoint === 5){
 
-        const again = document.createElement('button');
         again.textContent = 'Play Again!';
         const choices = document.querySelector('.choices');
         choices.appendChild(again);
@@ -65,15 +60,37 @@ function checkWinner(){
 
 
         if(playerPoint === 5){
+            playText.textContent = 'You won!'
 
         //console.log("You won the game!")
         }
         else{
+            playText.textContent = 'You lost!'
+
             
         //console.log("You lost the game!")
         }
     return true;
     }
+}
+
+function disableButtons(){
+    const rock = document.getElementById('rock');
+    rock.disabled = true;
+    const paper = document.getElementById('paper');
+    paper.disabled = true;
+    const scissors = document.getElementById('scissors');
+    scissors.disabled = true;
+
+}
+
+function enableButtons(){
+    const rock = document.getElementById('rock');
+    rock.disabled = false;
+    const paper = document.getElementById('paper');
+    paper.disabled = false;
+    const scissors = document.getElementById('scissors');
+    scissors.disabled = false;
 }
 
 
@@ -94,6 +111,18 @@ buttons.forEach((button) => {
     });
 });
 
+
+const again = document.createElement('button');
+const playText = document.createElement('div')
+
+again.addEventListener('click', () => {
+    document.getElementById('playerPoints').innerText = 0;
+    document.getElementById('computerPoints').innerText = 0;
+    document.getElementById('last-round').innerText = "";
+    again.remove();
+    playText.remove();
+    enableButtons();
+});
 
 //game();
 
